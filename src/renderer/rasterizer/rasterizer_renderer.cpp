@@ -22,10 +22,17 @@ void cg::renderer::rasterization_renderer::init()
 }
 void cg::renderer::rasterization_renderer::render()
 {
-	// TODO: Lab 1.02. Implement image clearing & saving in `cg::renderer::rasterization_renderer` class
+	rasterizer->clear_render_target({255, 208, 0});
+
+	for (size_t shape_id = 0; shape_id < model->get_index_buffers().size(); shape_id++){
+		rasterizer->set_vertex_buffer(model->get_vertex_buffers()[shape_id]);
+		rasterizer->set_index_buffer((model->get_index_buffers()[shape_id]));
+		rasterizer->draw(model->get_index_buffers()[shape_id]->get_number_of_elements(), 0);
+	}
 	// TODO: Lab 1.03. Adjust `cg::renderer::rasterization_renderer` class to consume `cg::world::model`
 	// TODO: Lab 1.04. Implement `vertex_shader` lambda for the instance of `cg::renderer::rasterizer`
 	// TODO: Lab 1.05. Implement `pixel_shader` lambda for the instance of `cg::renderer::rasterizer`
+	cg::utils::save_resource(*render_target, settings->result_path);
 }
 
 void cg::renderer::rasterization_renderer::destroy() {}
