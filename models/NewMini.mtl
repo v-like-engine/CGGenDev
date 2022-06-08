@@ -1,0 +1,129 @@
+# 
+# Wavefront material file
+# Converted by the DEEP Exploration  2.1.12.1218
+# Right Hemisphere, LTD
+# http://www.righthemisphere.com/
+# 
+
+newmtl dark
+Ka 0 0 0
+Kd 0.211765 0.211765 0.211765
+Ks 0.146753 0.146753 0.146753
+illum 2
+Ns 11.3137
+
+newmtl paint_shader
+Ka 0 0 0
+Kd 0.767941 0.710722 0
+Ks 0.47 0.43498 0
+illum 2
+Ns 87.4266
+
+newmtl chrome
+Ka 0 0 0
+Kd 0.302351 0.302351 0.302351
+Ks 0.439588 0.439588 0.439588
+illum 2
+Ns 207.937
+
+newmtl metal
+Ka 0 0 0
+Kd 0.171824 0.171824 0.171824
+Ks 0.283384 0.283384 0.283384
+illum 2
+Ns 30.91
+
+newmtl black_paint
+Ka 0 0 0
+Kd 0.211765 0.211765 0.211765
+Ks 0.146753 0.146753 0.146753
+illum 2
+Ns 11.3137
+
+newmtl blackstuffs
+Ka 0 0 0
+Kd 0.211765 0.211765 0.211765
+Ks 0.146753 0.146753 0.146753
+illum 2
+Ns 11.3137
+
+newmtl backlight_left
+Ka 0 0 0
+Kd 1 0.141176 0.00392157
+Ks 0.8 0.112941 0.00313726
+illum 2
+Ns 8
+map_Kd backlight_color.jpg
+
+newmtl glass
+Ka 0 0 0
+Kd 0.691765 0.753255 0.787843
+Ks 0.603529 0.657176 0.687353
+illum 2
+Ns 66.257
+
+newmtl Material__14
+Ka 0 0 0
+Kd 0.223529 0.223529 0.223529
+Ks 0.05 0.05 0.05
+illum 2
+Ns 32
+
+newmtl backlight_right
+Ka 0 0 0
+Kd 1 0.141176 0.00392157
+Ks 0.8 0.112941 0.00313726
+illum 2
+Ns 8
+map_Kd backlight_refl_index.jpg
+
+newmtl chrome1
+Ka 0 0 0
+Kd 0.302351 0.302351 0.302351
+Ks 0.439588 0.439588 0.439588
+illum 2
+Ns 207.937
+
+newmtl glass2
+Ka 0 0 0
+Kd 0.691765 0.753255 0.787843
+Ks 0.603529 0.657176 0.687353
+illum 2
+Ns 66.257
+
+newmtl roof
+Ka 0 0 0
+Kd 0.183176 0.183176 0.183176
+Ks 0.130871 0.130871 0.130871
+illum 2
+Ns 157.586
+
+newmtl interior
+Ka 0 0 0
+Kd 0.878431 0.823529 0.65098
+Ks 0.056 0.0525 0.0415
+illum 2
+Ns 32
+
+newmtl Material__19
+Ka 0 0 0
+Kd 0.882353 0.560784 0
+Ks 0.091712 0.058288 0
+illum 2
+Ns 32
+
+newmtl Material__16
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.044902 0.044902 0.044902
+illum 2
+Ns 11.3137
+
+newmtl tire
+Ka 0 0 0
+Kd 0.0736562 0.0736562 0.0736562
+Ks 0.0205767 0.0205767 0.0205767
+illum 2
+Ns 9.84916
+map_bump tire.jpg
+bump tire.jpg
