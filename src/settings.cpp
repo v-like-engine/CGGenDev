@@ -18,7 +18,7 @@ std::shared_ptr<settings> cg::settings::parse_settings(int argc, char** argv)
 	add_options("model_path", "Path to OBJ model", cxxopts::value<std::filesystem::path>()->default_value("models/cube.obj"));
 	add_options("camera_position", "Camera position", cxxopts::value<std::vector<float>>()->default_value("75.0,80.0,20.0"));
 	add_options("camera_theta", "Camera polar angle", cxxopts::value<float>()->default_value("0.0"));
-	add_options("camera_phi", "Camera azimut angle", cxxopts::value<float>()->default_value("-20.0"));
+	add_options("camera_phi", "Camera azimut angle", cxxopts::value<float>()->default_value("0.0"));
 	add_options("camera_angle_of_view", "Camera angle of view", cxxopts::value<float>()->default_value("60.0"));
 	add_options("camera_z_near", "Minimum expected depth", cxxopts::value<float>()->default_value("0.001"));
 	add_options("camera_z_far", "Maximum expected depth", cxxopts::value<float>()->default_value("100.0"));
