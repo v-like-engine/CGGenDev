@@ -213,11 +213,17 @@ void cg::renderer::dx12_renderer::create_constant_buffer_view(const ComPtr<ID3D1
 
 void cg::renderer::dx12_renderer::load_assets()
 {
-	// TODO Lab 3.03. Allocate memory for vertex and index buffers
+
 	// TODO Lab 3.03. Create committed resources for vertex, index and constant buffers on upload heap
 	// TODO Lab 3.03. Copy resource data to suitable resources
 	// TODO Lab 3.04. Create a descriptor heap for a constant buffer
 	// TODO Lab 3.04. Create a constant buffer view
+
+	vertex_buffers.resize(model->get_vertex_buffers().size());
+	vertex_buffer_views.resize(model->get_vertex_buffers().size());
+
+	index_buffers.resize(model->get_vertex_buffers().size());
+	index_buffer_views.resize(model->get_index_buffers().size());
 }
 
 
