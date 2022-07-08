@@ -384,12 +384,9 @@ void cg::renderer::dx12_renderer::create_pso(const std::string& shader_name)
 	pso_desc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 	pso_desc.SampleDesc.Count = 1;
 
-	auto arg_1 = &pso_desc;
-	auto subarg = &pipeline_state;
-	auto arg_2 = __uuidof(**(subarg));
-	auto arg_3 = IID_PPV_ARGS_Helper(subarg);
-	auto val = device->CreateGraphicsPipelineState(arg_1, arg_2, arg_3);
-	THROW_IF_FAILED(val);
+	THROW_IF_FAILED(device->CreateGraphicsPipelineState(
+			&pso_desc,
+			IID_PPV_ARGS(&pipeline_state)));
 }
 
 void cg::renderer::dx12_renderer::create_resource_on_upload_heap(ComPtr<ID3D12Resource>& resource, UINT size, const std::wstring& name)
@@ -501,7 +498,7 @@ void cg::renderer::dx12_renderer::load_assets()
 	upload_vertex_buffers.resize(model->get_vertex_buffers().size());
 	vertex_buffer_views.resize(model->get_vertex_buffers().size());
 
-	index_buffers.resize(model->get_vertex_buffers().size());
+	index_buffers.resize(model->get_index_buffers().size());
 	upload_index_buffers.resize(model->get_index_buffers().size());
 	index_buffer_views.resize(model->get_index_buffers().size());
 
@@ -625,7 +622,11 @@ void cg::renderer::dx12_renderer::populate_command_list()
 			clear_color,
 			0,
 			nullptr);
-
+	command_list->ClearDepthStencilView(
+						dsv_heap.get_cpu_descriptor_handle(),
+						D3D12_CLEAR_FLAG_DEPTH,
+						1.0f, 0, 0, nullptr
+						);
 	command_list->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	for (size_t s = 0; s < model->get_vertex_buffers().size(); s++) {
