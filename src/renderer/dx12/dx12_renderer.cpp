@@ -221,6 +221,7 @@ void cg::renderer::dx12_renderer::load_pipeline()
 	create_direct_command_queue();
 	create_swap_chain(dxgi_factory);
 	create_render_target_views();
+	create_depth_buffer();
 }
 
 D3D12_STATIC_SAMPLER_DESC cg::renderer::dx12_renderer::get_sampler_descriptor()
@@ -372,7 +373,9 @@ void cg::renderer::dx12_renderer::create_pso(const std::string& shader_name)
 	pso_desc.RasterizerState.FrontCounterClockwise = TRUE;
 	pso_desc.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID;
 	pso_desc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
-	pso_desc.DepthStencilState.DepthEnable = FALSE;
+	pso_desc.DepthStencilState.DepthEnable = TRUE;
+	pso_desc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS_EQUAL;
+	pso_desc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
 	pso_desc.DepthStencilState.StencilEnable = FALSE;
 	pso_desc.SampleMask = UINT_MAX;
 	pso_desc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
@@ -427,9 +430,10 @@ void cg::renderer::dx12_renderer::copy_data(const void* buffer_data, UINT buffer
 {
 	UINT8* buffer_data_begin;
 	CD3DX12_RANGE read_range(0, 0);
-	THROW_IF_FAILED(
-			destination_resource->Map(0, &read_range,
-									  reinterpret_cast<void**>(&buffer_data_begin)));
+	THROW_IF_FAILED(destination_resource->Map(
+			0,
+			&read_range,
+			reinterpret_cast<void**>(&buffer_data_begin)));
 
 	memcpy(buffer_data_begin, buffer_data, buffer_size);
 	destination_resource->Unmap(0, 0);
@@ -443,9 +447,9 @@ void cg::renderer::dx12_renderer::copy_data(const void* buffer_data, const UINT 
 	data.SlicePitch = slice_pitch != 0 ? slice_pitch : buffer_size;
 
 	UpdateSubresources(command_list.Get(), destination_resource.Get(),
-					   intermediate_resource.Get(),
-					   0, 0, 1,
-					   &data);
+					intermediate_resource.Get(),
+					0, 0, 1,
+					&data);
 	command_list->ResourceBarrier(
 			1,
 			&CD3DX12_RESOURCE_BARRIER::Transition(
@@ -614,7 +618,7 @@ void cg::renderer::dx12_renderer::populate_command_list()
 			1,
 			&rtv_heap.get_cpu_descriptor_handle(frame_index),
 			FALSE,
-			nullptr);
+			&dsv_heap.get_cpu_descriptor_handle());
 	const float clear_color[] = {0.f, 0.f, 0.f, 1.f};
 	command_list->ClearRenderTargetView(
 			rtv_heap.get_cpu_descriptor_handle(frame_index),
